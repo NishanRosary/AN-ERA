@@ -1,67 +1,96 @@
 import React from "react";
 import { cn } from "../lib/utils";
-import { Sparkles, Code2, Shield, Cloud, Smartphone, Database } from "lucide-react";
+import {
+    Code2,
+    Cloud,
+    Shield,
+    Smartphone,
+    Database,
+    Headset,
+    RefreshCcw,
+    Sparkles
+} from "lucide-react";
 
-function DisplayCard({
-    className,
-    icon = <Sparkles className="size-4 text-accent" />,
-    title = "Featured",
-    description = "Discover amazing content",
-    date = "Just now",
-    iconClassName = "text-accent",
-    titleClassName = "text-accent",
-}) {
-    return (
-        <div
-            className={cn(
-                "relative flex h-40 w-[24rem] -skew-y-[4deg] select-none flex-col justify-between rounded-2xl border border-white/10 bg-surface/80 backdrop-blur-md px-6 py-5 transition-all duration-700 after:absolute after:-right-1 after:top-[-5%] after:h-[110%] after:w-[20rem] after:bg-gradient-to-l after:from-background after:to-transparent after:content-[''] hover:border-accent/40 hover:bg-card [&>*]:flex [&>*]:items-center [&>*]:gap-2 shadow-2xl",
-                className
-            )}
-        >
-            <div>
-                <span className="relative inline-flex items-center justify-center rounded-lg bg-primary/20 p-2 border border-primary/30">
-                    {icon}
-                </span>
-                <p className={cn("text-xl font-heading font-semibold ml-3", titleClassName)}>{title}</p>
-            </div>
-            <p className="text-lg text-foreground/90 whitespace-nowrap">{description}</p>
-            <p className="text-sm font-mono text-muted-foreground">{date}</p>
-        </div>
-    );
-}
-
-export function Features({ cards }) {
-    const defaultCards = [
+export function Features() {
+    const features = [
         {
-            title: "Web Development",
-            description: "Next-gen immersive web apps",
-            date: "React / Next.js / Three.js",
-            icon: <Code2 className="size-5 text-accent" />,
-            className: "[grid-area:stack] hover:-translate-y-10 z-[3] before:absolute before:inset-0 before:rounded-2xl before:bg-background/40 hover:before:opacity-0 before:transition-opacity before:duration-700 hover:scale-105",
+            title: "Built for visionaries",
+            description: "Engineered for startups, enterprises, dreamers, thinkers and doers.",
+            icon: <Sparkles className="w-6 h-6" />,
         },
         {
-            title: "Cybersecurity",
-            description: "Enterprise-grade protection",
-            date: "Audit / Penetration Pro",
-            icon: <Shield className="size-5 text-emerald-light" />,
-            className: "[grid-area:stack] translate-x-12 translate-y-12 hover:-translate-y-2 z-[2] before:absolute before:inset-0 before:rounded-2xl before:bg-background/60 hover:before:opacity-0 before:transition-opacity before:duration-700 hover:scale-105",
+            title: "Immersive Experiences",
+            description: "World-class web and mobile applications that captivate and convert.",
+            icon: <Smartphone className="w-6 h-6" />,
         },
         {
-            title: "Cloud Services",
-            description: "Infinite scalable infrastructure",
-            date: "AWS / Azure / GCP",
-            icon: <Cloud className="size-5 text-mint-flash" />,
-            className: "[grid-area:stack] translate-x-24 translate-y-24 hover:translate-y-10 z-[1] hover:scale-105",
+            title: "Scalable Architecture",
+            description: "Infinite scale on AWS, Azure, and GCP. Pay only for what you use.",
+            icon: <Cloud className="w-6 h-6" />,
+        },
+        {
+            title: "Ironclad Security",
+            description: "Military-grade encryption and 24/7 penetration testing guarantees.",
+            icon: <Shield className="w-6 h-6" />,
+        },
+        {
+            title: "Next-Gen Stack",
+            description: "React, Next.js, and specialized WebGL shaders for a premium feel.",
+            icon: <Code2 className="w-6 h-6" />,
+        },
+        {
+            title: "Data Analytics",
+            description: "Turn your messy data streams into actionable insights effortlessly.",
+            icon: <Database className="w-6 h-6" />,
+        },
+        {
+            title: "24/7 Premium Support",
+            description: "We are available 100% of the time to assist with your infrastructure.",
+            icon: <Headset className="w-6 h-6" />,
+        },
+        {
+            title: "Agile Delivery",
+            description: "Rapid iteration cycles ensuring you beat your competitors to market.",
+            icon: <RefreshCcw className="w-6 h-6" />,
         },
     ];
 
-    const displayCards = cards || defaultCards;
-
     return (
-        <div className="grid [grid-template-areas:'stack'] place-items-center opacity-100 animate-in fade-in-0 duration-700 perspective-[1000px]">
-            {displayCards.map((cardProps, index) => (
-                <DisplayCard key={index} {...cardProps} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 relative z-10 py-10 max-w-7xl mx-auto">
+            {features.map((feature, index) => (
+                <Feature key={feature.title} {...feature} index={index} />
             ))}
         </div>
     );
 }
+
+const Feature = ({ title, description, icon, index }) => {
+    return (
+        <div
+            className={cn(
+                "flex flex-col lg:border-r py-10 relative group/feature border-white/10 transition-colors duration-300",
+                (index === 0 || index === 4) && "lg:border-l border-white/10",
+                index < 4 && "lg:border-b border-white/10"
+            )}
+        >
+            {index < 4 && (
+                <div className="opacity-0 group-hover/feature:opacity-100 transition duration-500 absolute inset-0 h-full w-full bg-gradient-to-t from-accent/10 to-transparent pointer-events-none" />
+            )}
+            {index >= 4 && (
+                <div className="opacity-0 group-hover/feature:opacity-100 transition duration-500 absolute inset-0 h-full w-full bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
+            )}
+            <div className="mb-4 relative z-10 px-10 text-accent group-hover/feature:text-mint-flash transition-colors duration-300 drop-shadow-[0_0_15px_rgba(62,207,122,0.5)]">
+                {icon}
+            </div>
+            <div className="text-xl font-heading font-bold mb-2 relative z-10 px-10">
+                <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-white/10 group-hover/feature:bg-accent transition-all duration-300 origin-center" />
+                <span className="group-hover/feature:translate-x-2 transition duration-300 inline-block text-white/90">
+                    {title}
+                </span>
+            </div>
+            <p className="text-sm text-muted-foreground max-w-xs relative z-10 px-10 group-hover/feature:text-white/70 transition-colors duration-300 leading-relaxed font-medium">
+                {description}
+            </p>
+        </div>
+    );
+};

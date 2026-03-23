@@ -1,5 +1,5 @@
 import React from 'react';
-import ShaderBackground from './components/ShaderBackground';
+import { BackgroundBeams } from './components/ui/background-beams';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { AnimatedTextCycle } from './components/AnimatedText';
@@ -101,8 +101,10 @@ const pricingPlans = [
 
 function App() {
   return (
-    <div className="relative min-h-screen font-body selection:bg-accent/30 selection:text-white">
-      <ShaderBackground />
+    <div className="relative min-h-screen font-body selection:bg-accent/30 selection:text-white bg-dark-bg">
+      <div className="fixed inset-0 z-[0] pointer-events-none">
+        <BackgroundBeams />
+      </div>
       <Navbar />
 
       <main className="flex-1 w-full overflow-hidden">

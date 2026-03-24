@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackgroundBeams } from './components/ui/background-beams';
+import { PremiumBackground } from './components/ui/premium-background';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { AnimatedTextCycle } from './components/AnimatedText';
@@ -103,7 +103,7 @@ function App() {
   return (
     <div className="relative min-h-screen font-body selection:bg-accent/30 selection:text-foreground bg-background">
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <BackgroundBeams />
+        <PremiumBackground />
       </div>
       <Navbar />
 

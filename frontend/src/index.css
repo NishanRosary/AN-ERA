@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Inter:wght@100..900&display=swap');
+
 @layer base {
   :root {
     /* Light Mode (Default) - White with Alpine Green Contrast */
@@ -79,7 +81,9 @@
     @apply border-border selection:bg-accent/30 selection:text-white;
   }
   body {
-    @apply bg-background text-foreground font-body antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    
     /* Basic scrollbar styling */
     &::-webkit-scrollbar {
       width: 10px;
@@ -93,10 +97,25 @@
   }
 }
 
+@layer components {
+  .font-heading {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   @apply font-heading tracking-tight;
 }
 
 code, pre {
   @apply font-mono;
+}
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-rainbow {
+  animation: rainbow 3s linear infinite;
 }

@@ -5,13 +5,17 @@ import './index.css';
 
 import { createRoot } from 'react-dom/client';
 
+import { ThemeProvider } from './hooks/use-theme';
+
 const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <App />
+      </Router>
+    </ThemeProvider>
   </React.StrictMode>
 );

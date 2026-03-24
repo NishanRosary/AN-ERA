@@ -2,8 +2,12 @@ import React, { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
+import { useTheme } from "../../hooks/use-theme";
 
 function Particles({ count = 5000 }) {
+  const { theme } = useTheme();
+  const particleColor = theme === 'dark' ? "#3ECF7A" : "#000000";
+
   const points = useMemo(() => {
     const p = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -33,17 +37,19 @@ function Particles({ count = 5000 }) {
     <Points ref={pointsRef} positions={points} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        color="#3ECF7A"
+        color={particleColor}
         size={0.035}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.4}
+        opacity={theme === 'dark' ? 0.4 : 0.25}
       />
     </Points>
   );
 }
 
 function InteractiveLight() {
+  const { theme } = useTheme();
+  const lightColor = theme === 'dark' ? "#3ECF7A" : "#000000";
   const lightRef = useRef();
 
   useFrame((state) => {
@@ -54,7 +60,7 @@ function InteractiveLight() {
     }
   });
 
-  return <pointLight ref={lightRef} intensity={10} color="#3ECF7A" distance={15} />;
+  return <pointLight ref={lightRef} intensity={theme === 'dark' ? 10 : 25} color={lightColor} distance={15} />;
 }
 
 export function PremiumBackground() {

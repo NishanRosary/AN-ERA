@@ -173,7 +173,7 @@ export function ActionSearchBar({ actions = allActions }) {
                             onBlur={() =>
                                 setTimeout(() => setIsFocused(false), 200)
                             }
-                            className="relative pl-5 pr-12 py-6 text-lg rounded-xl focus-visible:ring-accent focus-visible:ring-2 border-white/10 bg-surface/90 backdrop-blur-md text-white shadow-2xl placeholder:text-muted-foreground"
+                            className="relative pl-5 pr-12 py-6 text-lg rounded-xl focus-visible:ring-accent focus-visible:ring-2 border-border bg-card/90 backdrop-blur-md text-foreground shadow-2xl placeholder:text-muted-foreground"
                         />
                         <div className="absolute right-5 top-1/2 -translate-y-1/2 h-5 w-5">
                             <AnimatePresence mode="popLayout">
@@ -207,7 +207,7 @@ export function ActionSearchBar({ actions = allActions }) {
                     <AnimatePresence>
                         {isFocused && result && !selectedAction && (
                             <motion.div
-                                className="w-full border rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden border-white/10 bg-card/95 backdrop-blur-xl"
+                                className="w-full border rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden border-border bg-card/95 backdrop-blur-xl"
                                 variants={container}
                                 initial="hidden"
                                 animate="show"
@@ -217,7 +217,7 @@ export function ActionSearchBar({ actions = allActions }) {
                                     {result.actions.map((action) => (
                                         <motion.li
                                             key={action.id}
-                                            className="px-4 py-3 flex items-center justify-between hover:bg-white/5 cursor-pointer transition-colors"
+                                            className="px-4 py-3 flex items-center justify-between hover:bg-muted cursor-pointer transition-colors"
                                             variants={item}
                                             layout
                                             onClick={() =>
@@ -226,10 +226,10 @@ export function ActionSearchBar({ actions = allActions }) {
                                         >
                                             <div className="flex items-center gap-3 justify-between">
                                                 <div className="flex items-center gap-3">
-                                                    <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-surface border border-white/5">
+                                                    <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-background border border-border">
                                                         {action.icon}
                                                     </span>
-                                                    <span className="text-sm font-semibold text-white">
+                                                    <span className="text-sm font-semibold text-foreground">
                                                         {action.label}
                                                     </span>
                                                     <span className="text-xs text-muted-foreground font-mono hidden sm:inline-block">
@@ -238,14 +238,14 @@ export function ActionSearchBar({ actions = allActions }) {
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-3">
-                                                <span className="text-xs text-muted-foreground font-mono bg-surface px-2 py-1 rounded">
+                                                <span className="text-xs text-muted-foreground font-mono bg-background px-2 py-1 rounded border border-border">
                                                     {action.short || "Enter"}
                                                 </span>
                                             </div>
                                         </motion.li>
                                     ))}
                                 </motion.ul>
-                                <div className="px-4 py-3 bg-surface border-t border-white/5">
+                                <div className="px-4 py-3 bg-muted/50 border-t border-border">
                                     <div className="flex items-center justify-between text-xs text-muted-foreground font-mono">
                                         <span>Press ⌘K to open commands</span>
                                         <span>ESC to cancel</span>

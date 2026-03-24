@@ -53,7 +53,7 @@ export function Pricing({
         <section id="pricing" className="py-24 sm:py-32 relative z-10 flex flex-col items-center">
             <div className="container max-w-7xl mx-auto px-4 md:px-6">
                 <div className="text-center space-y-4 mb-16">
-                    <h2 className="text-4xl font-heading font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                    <h2 className="text-4xl font-heading font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
                         {title}
                     </h2>
                     <p className="text-muted-foreground text-lg whitespace-pre-line max-w-2xl mx-auto">
@@ -62,7 +62,7 @@ export function Pricing({
                 </div>
 
                 <div className="flex justify-center items-center gap-3 mb-16">
-                    <span className={`text-sm font-medium ${isMonthly ? 'text-white' : 'text-muted-foreground'}`}>Monthly billing</span>
+                    <span className={`text-sm font-medium ${isMonthly ? 'text-foreground' : 'text-muted-foreground'}`}>Monthly billing</span>
                     <Label className="relative inline-flex items-center cursor-pointer">
                         <Switch
                             ref={switchRef}
@@ -71,7 +71,7 @@ export function Pricing({
                             className="data-[state=checked]:bg-accent data-[state=unchecked]:bg-card border-border"
                         />
                     </Label>
-                    <span className={`text-sm font-medium ${!isMonthly ? 'text-white' : 'text-muted-foreground'}`}>
+                    <span className={`text-sm font-medium ${!isMonthly ? 'text-foreground' : 'text-muted-foreground'}`}>
                         Annual billing <span className="text-accent underline decoration-accent/50 underline-offset-4">(Save 20%)</span>
                     </span>
                 </div>
@@ -100,8 +100,8 @@ export function Pricing({
                                 delay: index * 0.1,
                             }}
                             className={cn(
-                                `rounded-3xl border border-white/10 p-8 backdrop-blur-xl bg-surface/80 flex flex-col relative overflow-hidden transition-all duration-300`,
-                                plan.isPopular ? "border-accent/50 shadow-[0_0_40px_rgba(62,207,122,0.15)] ring-1 ring-accent" : "hover:border-white/20 hover:bg-card/90",
+                                `rounded-3xl border border-border p-8 backdrop-blur-xl bg-card/80 dark:bg-card/30 flex flex-col relative overflow-hidden transition-all duration-300`,
+                                plan.isPopular ? "border-accent/50 shadow-[0_0_40px_rgba(62,207,122,0.15)] ring-1 ring-accent" : "hover:border-accent/20 hover:bg-card",
                                 index === 0 || index === 2 ? "z-0" : "z-10 shadow-2xl",
                             )}
                         >
@@ -116,13 +116,13 @@ export function Pricing({
                             )}
 
                             <div className="flex-1 flex flex-col">
-                                <p className="text-lg font-heading font-semibold text-white/90">
+                                <p className="text-lg font-heading font-semibold text-foreground/90">
                                     {plan.name}
                                 </p>
 
                                 <div className="mt-6 flex flex-col">
                                     <div className="flex items-baseline gap-1">
-                                        <span className="text-5xl font-mono font-bold tracking-tight text-white">
+                                        <span className="text-5xl font-mono font-bold tracking-tight text-foreground">
                                             <NumberFlow
                                                 value={isMonthly ? Number(plan.price) : Number(plan.yearlyPrice)}
                                                 format={{ style: "currency", currency: "USD", minimumFractionDigits: 0 }}
@@ -144,7 +144,7 @@ export function Pricing({
                                         {plan.features.map((feature, idx) => (
                                             <li key={idx} className="flex items-start gap-3">
                                                 <Check className="h-5 w-5 text-accent shrink-0 mt-0.5" />
-                                                <span className="text-sm text-white/80">{feature}</span>
+                                                <span className="text-sm text-foreground/80">{feature}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -156,8 +156,8 @@ export function Pricing({
                                         buttonVariants({ variant: plan.isPopular ? "default" : "outline" }),
                                         "w-full py-6 text-base font-semibold rounded-xl transition-all duration-300 group",
                                         plan.isPopular
-                                            ? "bg-accent hover:bg-mint-flash text-dark-bg shadow-lg shadow-accent/20"
-                                            : "bg-background/50 hover:bg-card hover:text-white border-white/10"
+                                            ? "bg-accent hover:bg-mint-flash text-white dark:text-dark-bg shadow-lg shadow-accent/20"
+                                            : "bg-background/50 hover:bg-card hover:text-foreground border-border"
                                     )}
                                 >
                                     {plan.buttonText}

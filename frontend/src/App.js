@@ -101,8 +101,8 @@ const pricingPlans = [
 
 function App() {
   return (
-    <div className="relative min-h-screen font-body selection:bg-accent/30 selection:text-white bg-dark-bg">
-      <div className="fixed inset-0 z-[0] pointer-events-none">
+    <div className="relative min-h-screen font-body selection:bg-accent/30 selection:text-foreground bg-background">
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <BackgroundBeams />
       </div>
       <Navbar />
@@ -110,16 +110,16 @@ function App() {
       <main className="flex-1 w-full overflow-hidden">
         {/* HERO SECTION */}
         <section className="relative w-full h-screen flex items-center justify-center pt-20" id="home">
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(62,207,122,0.1)_0,transparent_50%)]" />
+          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,var(--accent-foreground,rgba(62,207,122,0.1))_0,transparent_50%)] opacity-20" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 flex flex-col items-center">
             {/* Pill badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/30 bg-card/60 backdrop-blur-md mb-8 shadow-[0_0_15px_rgba(62,207,122,0.15)]">
-              <Sparkles className="w-4 h-4 text-mint-flash" />
-              <span className="text-sm font-medium text-white/90">Welcome to the New Era of Technology</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-card/40 backdrop-blur-md mb-8 shadow-sm dark:shadow-[0_0_15px_rgba(62,207,122,0.15)]">
+              <Sparkles className="w-4 h-4 text-accent" />
+              <span className="text-sm font-medium text-foreground/90">Welcome to the New Era of Technology</span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white tracking-tighter mix-blend-plus-lighter max-w-5xl leading-[1.1]">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-foreground tracking-tighter dark:mix-blend-plus-lighter max-w-5xl leading-[1.1]">
               Engineering the Future of <br className="hidden md:block" />
               <AnimatedTextCycle
                 words={["Immersive Web", "Scalable Cloud", "Cybersecurity", "Data Analytics"]}
@@ -136,7 +136,7 @@ function App() {
                 Start Your Project
                 <span className="ml-1 opacity-70 group-hover:translate-x-1 group-hover:opacity-100 transition-all font-mono">→</span>
               </RainbowButton>
-              <a href="#work" className="text-white hover:text-accent font-semibold flex items-center gap-2 transition-colors py-3 px-6 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10">
+              <a href="#work" className="text-foreground hover:text-accent font-semibold flex items-center gap-2 transition-colors py-3 px-6 rounded-full hover:bg-muted border border-transparent hover:border-border">
                 View our work
               </a>
             </div>
@@ -145,20 +145,20 @@ function App() {
 
         {/* FEATURES SECTION */}
         <section className="relative py-32 z-10 w-full" id="services">
-          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#050E09] to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent pointer-events-none" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="text-center mb-24 relative">
               <h2 className="text-sm font-mono tracking-[0.2em] text-accent uppercase mb-4">Our Expertise</h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold text-white">End-to-End Technology Powerhouse</h3>
+              <h3 className="text-4xl md:text-5xl font-heading font-bold text-foreground dark:text-white">End-to-End Technology Powerhouse</h3>
             </div>
 
             <Features />
           </div>
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050E09] to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent pointer-events-none" />
         </section>
 
         {/* SPLINE 3D / ACTION SEARCH */}
-        <section className="relative py-32 bg-dark-bg/50 backdrop-blur-xl border-y border-white/5 z-10" id="work">
+        <section className="relative py-32 bg-background/50 backdrop-blur-xl border-y border-border z-10" id="work">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <ActionSearchBar />
           </div>

@@ -50,7 +50,7 @@ export function AnimatedTextCycle({
             <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
                     key={currentIndex}
-                    className={`col-start-1 row-start-1 text-accent ${className}`}
+                    className={`col-start-1 row-start-1 text-primary dark:text-accent ${className}`}
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"

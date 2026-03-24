@@ -4,49 +4,49 @@
 
 @layer base {
   :root {
-    --background: 146 48% 4%; /* #050E09 */
-    --foreground: 142 100% 97%; /* #F0FFF6 */
+    /* Light Mode (Default) - White with Alpine Green Contrast */
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 154 39% 10%; /* Very dark green for contrast */
     
-    --card: 146 38% 10%; /* #0F2318 */
-    --card-foreground: 142 100% 97%;
+    --card: 0 0% 100%;
+    --card-foreground: 154 39% 10%;
     
-    --popover: 146 48% 4%;
-    --popover-foreground: 142 100% 97%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 154 39% 10%;
     
-    --primary: 154 39% 30%; /* #2D6A4F */
-    --primary-foreground: 142 100% 97%;
+    --primary: 154 39% 30%; /* Alpine Green: #2D6A4F */
+    --primary-foreground: 0 0% 100%;
     
-    --secondary: 146 44% 8%; /* #0A1A0F */
-    --secondary-foreground: 142 100% 97%;
+    --secondary: 154 39% 95%; /* Very light alpine green */
+    --secondary-foreground: 154 39% 30%;
     
-    --muted: 146 38% 10%;
-    --muted-foreground: 144 23% 39%; /* #4D7A5F */
+    --muted: 154 39% 96%;
+    --muted-foreground: 154 15% 40%;
     
     --accent: 145 61% 53%; /* #3ECF7A */
-    --accent-foreground: 146 48% 4%;
+    --accent-foreground: 0 0% 100%;
     
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 144 23% 39%;
-    --input: 146 38% 10%;
-    --ring: 145 61% 53%;
+    --border: 154 39% 85%;
+    --input: 154 39% 95%;
+    --ring: 154 39% 30%;
     
     --radius: 0.75rem;
-    
-    --color-1: 145 61% 53%; /* Emerald */
-    --color-2: 154 39% 30%; /* Alpine Green */
-    --color-3: 151 69% 60%; /* Mint Flash */
-    --color-4: 145 61% 53%; /* Emerald */
-    --color-5: 144 23% 39%; /* Muted base for subtle shifts */
+
+    /* Brand Colors - available in both modes */
+    --alpine-green: 154 39% 30%;
+    --emerald-light: 145 61% 53%;
+    --mint-flash: 151 69% 60%;
+    --dark-bg: 146 48% 4%;
   }
 
-  /* We force dark mode globally since it's a dark design */
   .dark {
+    /* Dark Mode - Existing black and alpine green */
     --background: 146 48% 4%;
     --foreground: 142 100% 97%;
     
-    /* Variables matched to dark theme */
     --card: 146 38% 10%;
     --card-foreground: 142 100% 97%;
     

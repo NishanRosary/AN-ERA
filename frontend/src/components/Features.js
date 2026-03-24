@@ -68,9 +68,9 @@ const Feature = ({ title, description, icon, index }) => {
     return (
         <div
             className={cn(
-                "flex flex-col lg:border-r py-10 relative group/feature border-white/10 transition-colors duration-300",
-                (index === 0 || index === 4) && "lg:border-l border-white/10",
-                index < 4 && "lg:border-b border-white/10"
+                "flex flex-col lg:border-r py-10 relative group/feature border-border transition-colors duration-300",
+                (index === 0 || index === 4) && "lg:border-l border-border",
+                index < 4 && "lg:border-b border-border"
             )}
         >
             {index < 4 && (
@@ -79,16 +79,16 @@ const Feature = ({ title, description, icon, index }) => {
             {index >= 4 && (
                 <div className="opacity-0 group-hover/feature:opacity-100 transition duration-500 absolute inset-0 h-full w-full bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
             )}
-            <div className="mb-4 relative z-10 px-10 text-accent group-hover/feature:text-mint-flash transition-colors duration-300 drop-shadow-[0_0_15px_rgba(62,207,122,0.5)]">
+            <div className="mb-4 relative z-10 px-10 text-primary group-hover/feature:text-accent transition-colors duration-300 dark:drop-shadow-[0_0_15px_rgba(62,207,122,0.5)]">
                 {icon}
             </div>
             <div className="text-xl font-heading font-bold mb-2 relative z-10 px-10">
-                <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-white/10 group-hover/feature:bg-accent transition-all duration-300 origin-center" />
-                <span className="group-hover/feature:translate-x-2 transition duration-300 inline-block text-white/90">
+                <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-border group-hover/feature:bg-accent transition-all duration-300 origin-center" />
+                <span className="group-hover/feature:translate-x-2 transition duration-300 inline-block text-foreground/90">
                     {title}
                 </span>
             </div>
-            <p className="text-sm text-muted-foreground max-w-xs relative z-10 px-10 group-hover/feature:text-white/70 transition-colors duration-300 leading-relaxed font-medium">
+            <p className="text-sm text-muted-foreground max-w-xs relative z-10 px-10 group-hover/feature:text-foreground/70 transition-colors duration-300 leading-relaxed font-medium">
                 {description}
             </p>
         </div>

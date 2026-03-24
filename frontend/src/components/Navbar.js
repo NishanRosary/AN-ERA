@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
+import { useTheme } from "../hooks/use-theme";
+import { Moon, Sun } from "lucide-react";
 
 export function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,7 +20,7 @@ export function Navbar() {
     return (
         <nav
             className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${scrolled
-                    ? "bg-[rgba(5,14,9,0.85)] backdrop-blur-[20px] border-[rgba(62,207,122,0.08)] py-4"
+                    ? "bg-background/80 backdrop-blur-[20px] border-border py-4"
                     : "bg-transparent border-transparent py-6"
                 }`}
         >
@@ -25,7 +28,7 @@ export function Navbar() {
                 <div className="flex justify-between items-center">
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 group">
-                        <span className="text-2xl font-heading font-bold text-white tracking-widest group-hover:text-accent transition-colors">
+                        <span className="text-2xl font-heading font-bold text-foreground tracking-widest group-hover:text-accent transition-colors">
                             AN<span className="text-accent">-</span>ERA
                         </span>
                     </Link>
@@ -36,32 +39,47 @@ export function Navbar() {
                             <a
                                 key={item}
                                 href={`#${item.toLowerCase()}`}
-                                className="text-sm font-medium text-foreground/80 hover:text-white transition-colors"
+                                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                             >
                                 {item}
                             </a>
                         ))}
                     </div>
 
-                    {/* CTA */}
-                    <div className="hidden md:block">
-                        <Button className="bg-primary/90 hover:bg-accent text-white rounded-full px-6 transition-all duration-300 hover:shadow-[0_0_20px_rgba(62,207,122,0.4)]">
+                    {/* CTA & Theme Toggle */}
+                    <div className="hidden md:flex items-center gap-4">
+                        <button
+                            onClick={toggleTheme}
+                            className="p-2 rounded-full hover:bg-muted transition-colors text-foreground"
+                            aria-label="Toggle theme"
+                        >
+                            {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                        </button>
+                        <Button className="bg-primary/90 hover:bg-accent text-primary-foreground rounded-full px-6 transition-all duration-300 hover:shadow-[0_0_20px_rgba(62,207,122,0.4)]">
                             Get Started
                         </Button>
                     </div>
 
                     {/* Mobile Menu Toggle */}
                     <div className="md:hidden">
-                        <button
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="text-white hover:text-accent transition-colors"
-                        >
-                            <svg
-                                className="w-6 h-6"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={toggleTheme}
+                                className="p-2 rounded-full hover:bg-muted transition-colors text-foreground"
+                                aria-label="Toggle theme"
                             >
+                                {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                            </button>
+                            <button
+                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                className="text-foreground hover:text-accent transition-colors"
+                            >
+                                <svg
+                                    className="w-6 h-6"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
                                 {mobileMenuOpen ? (
                                     <path
                                         strokeLinecap="round"
@@ -79,6 +97,7 @@ export function Navbar() {
                                 )}
                             </svg>
                         </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,7 +110,7 @@ export function Navbar() {
                             <a
                                 key={item}
                                 href={`#${item.toLowerCase()}`}
-                                className="text-2xl font-heading font-semibold text-white hover:text-accent transition-colors w-full text-center py-2 relative group"
+                                className="text-2xl font-heading font-semibold text-foreground hover:text-accent transition-colors w-full text-center py-2 relative group"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 {item}

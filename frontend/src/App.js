@@ -149,7 +149,7 @@ function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="text-center mb-24 relative">
               <h2 className="text-sm font-mono tracking-[0.2em] text-accent uppercase mb-4">Our Expertise</h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold text-foreground dark:text-white">End-to-End Technology Powerhouse</h3>
+              <h3 className="text-4xl md:text-5xl font-heading font-bold text-black dark:text-white">End-to-End Technology Powerhouse</h3>
             </div>
 
             <Features />

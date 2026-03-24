@@ -157,7 +157,7 @@ export function Pricing({
                                         "w-full py-6 text-base font-semibold rounded-xl transition-all duration-300 group",
                                         plan.isPopular
                                             ? "bg-accent hover:bg-mint-flash text-white dark:text-dark-bg shadow-lg shadow-accent/20"
-                                            : "bg-background/50 hover:bg-card hover:text-foreground border-border"
+                                            : "bg-muted/80 hover:bg-muted text-foreground border-border hover:border-accent/40"
                                     )}
                                 >
                                     {plan.buttonText}
@@ -168,7 +168,7 @@ export function Pricing({
                                     </motion.span>
                                 </Link>
 
-                                <p className="mt-4 text-xs text-center text-muted-foreground">
+                                <p className="mt-4 text-xs text-center text-foreground/70 dark:text-muted-foreground">
                                     {plan.description}
                                 </p>
                             </div>

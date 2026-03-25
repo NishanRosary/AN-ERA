@@ -10,87 +10,92 @@ import {
     RefreshCcw,
     Sparkles
 } from "lucide-react";
+import "./Features.css";
 
 export function Features() {
     const features = [
         {
             title: "Built for visionaries",
-            description: "Engineered for startups, enterprises, dreamers, thinkers and doers.",
-            icon: <Sparkles className="w-6 h-6" />,
+            description: "Engineered for startups, enterprises, and dreamers.",
+            icon: <Sparkles className="w-8 h-8" />,
+            color: "62, 207, 122" // #3ECF7A (Accent)
         },
         {
             title: "Immersive Experiences",
-            description: "World-class web and mobile applications that captivate and convert.",
-            icon: <Smartphone className="w-6 h-6" />,
+            description: "World-class web and mobile applications.",
+            icon: <Smartphone className="w-8 h-8" />,
+            color: "45, 106, 79" // Alpine Green
         },
         {
             title: "Scalable Architecture",
-            description: "Infinite scale on AWS, Azure, and GCP. Pay only for what you use.",
-            icon: <Cloud className="w-6 h-6" />,
+            description: "Infinite scale on AWS, Azure, and GCP.",
+            icon: <Cloud className="w-8 h-8" />,
+            color: "62, 207, 122"
         },
         {
             title: "Ironclad Security",
-            description: "Military-grade encryption and 24/7 penetration testing guarantees.",
-            icon: <Shield className="w-6 h-6" />,
+            description: "Military-grade encryption and testing.",
+            icon: <Shield className="w-8 h-8" />,
+            color: "45, 106, 79"
         },
         {
             title: "Next-Gen Stack",
-            description: "React, Next.js, and specialized WebGL shaders for a premium feel.",
-            icon: <Code2 className="w-6 h-6" />,
+            description: "React, Next.js, and specialized WebGL.",
+            icon: <Code2 className="w-8 h-8" />,
+            color: "62, 207, 122"
         },
         {
             title: "Data Analytics",
-            description: "Turn your messy data streams into actionable insights effortlessly.",
-            icon: <Database className="w-6 h-6" />,
+            description: "Turn messy data into actionable insights.",
+            icon: <Database className="w-8 h-8" />,
+            color: "45, 106, 79"
         },
         {
-            title: "24/7 Premium Support",
-            description: "We are available 100% of the time to assist with your infrastructure.",
-            icon: <Headset className="w-6 h-6" />,
+            title: "Premium Support",
+            description: "Available 100% of the time to assist.",
+            icon: <Headset className="w-8 h-8" />,
+            color: "62, 207, 122"
         },
         {
             title: "Agile Delivery",
-            description: "Rapid iteration cycles ensuring you beat your competitors to market.",
-            icon: <RefreshCcw className="w-6 h-6" />,
+            description: "Rapid iteration cycles to beat competitors.",
+            icon: <RefreshCcw className="w-8 h-8" />,
+            color: "45, 106, 79"
         },
     ];
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 relative z-10 py-10 max-w-7xl mx-auto">
-            {features.map((feature, index) => (
-                <Feature key={feature.title} {...feature} index={index} />
-            ))}
+        <div className="wrapper-3d pt-20 pb-40">
+            <div className="inner-3d" style={{ "--quantity": features.length }}>
+                {features.map((feature, index) => (
+                    <div
+                        key={index}
+                        className="card-3d group"
+                        style={{
+                            "--index": index,
+                            "--color-card": feature.color,
+                        }}
+                    >
+                        <div className="img-bg" />
+                        <div className="card-content">
+                            <div 
+                                className="mb-6 p-4 rounded-full bg-background/50 border border-border group-hover:border-accent group-hover:text-accent transition-all duration-300 dark:shadow-[0_0_20px_rgba(62,207,122,0.2)]"
+                                style={{ color: `rgb(${feature.color})` }}
+                            >
+                                {feature.icon}
+                            </div>
+                            <h3 className="text-lg md:text-xl font-heading font-bold mb-3 text-foreground tracking-tight">
+                                {feature.title}
+                            </h3>
+                            <p className="text-xs md:text-sm text-center text-muted-foreground font-medium leading-relaxed px-2">
+                                {feature.description}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {/* Added a subtle glow effect behind the carousel */}
+            <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/10 blur-[120px] rounded-full pointer-events-none -z-10" />
         </div>
     );
 }
-
-const Feature = ({ title, description, icon, index }) => {
-    return (
-        <div
-            className={cn(
-                "flex flex-col lg:border-r py-10 relative group/feature border-border transition-colors duration-300",
-                (index === 0 || index === 4) && "lg:border-l border-border",
-                index < 4 && "lg:border-b border-border"
-            )}
-        >
-            {index < 4 && (
-                <div className="opacity-0 group-hover/feature:opacity-100 transition duration-500 absolute inset-0 h-full w-full bg-gradient-to-t from-accent/10 to-transparent pointer-events-none" />
-            )}
-            {index >= 4 && (
-                <div className="opacity-0 group-hover/feature:opacity-100 transition duration-500 absolute inset-0 h-full w-full bg-gradient-to-b from-accent/10 to-transparent pointer-events-none" />
-            )}
-            <div className="mb-4 relative z-10 px-10 text-primary group-hover/feature:text-accent transition-colors duration-300 dark:drop-shadow-[0_0_15px_rgba(62,207,122,0.5)]">
-                {icon}
-            </div>
-            <div className="text-xl font-heading font-bold mb-2 relative z-10 px-10">
-                <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-border group-hover/feature:bg-accent transition-all duration-300 origin-center" />
-                <span className="group-hover/feature:translate-x-2 transition duration-300 inline-block text-foreground/90">
-                    {title}
-                </span>
-            </div>
-            <p className="text-sm text-muted-foreground max-w-xs relative z-10 px-10 group-hover/feature:text-foreground/70 transition-colors duration-300 leading-relaxed font-medium">
-                {description}
-            </p>
-        </div>
-    );
-};

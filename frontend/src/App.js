@@ -146,13 +146,15 @@ function App() {
         {/* FEATURES SECTION */}
         <section className="relative py-32 z-10 w-full" id="services">
           <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent pointer-events-none" />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="text-center mb-24 relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative mb-20">
+            <div className="text-center relative">
               <h2 className="text-sm font-mono tracking-[0.2em] text-accent uppercase mb-4">Our Expertise</h2>
               <h3 className="text-4xl md:text-5xl font-heading font-bold text-black dark:text-white">End-to-End Technology Powerhouse</h3>
             </div>
+          </div>
 
-            <Features />
+          <div className="w-full relative px-0">
+             <Features />
           </div>
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent pointer-events-none" />
         </section>

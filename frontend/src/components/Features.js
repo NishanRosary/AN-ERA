@@ -64,38 +64,61 @@ export function Features() {
         },
     ];
 
+    // Duplicate features for seamless loop
+    const displayFeatures = [...features, ...features];
+
     return (
         <div className="wrapper-3d pt-20 pb-40">
-            <div className="inner-3d" style={{ "--quantity": features.length }}>
-                {features.map((feature, index) => (
-                    <div
-                        key={index}
-                        className="card-3d group"
-                        style={{
-                            "--index": index,
-                            "--color-card": feature.color,
-                        }}
-                    >
-                        <div className="img-bg" />
-                        <div className="card-content">
-                            <div 
-                                className="mb-6 p-4 rounded-full bg-background/50 border border-border group-hover:border-accent group-hover:text-accent transition-all duration-300 dark:shadow-[0_0_20px_rgba(62,207,122,0.2)]"
-                                style={{ color: `rgb(${feature.color})` }}
-                            >
-                                {feature.icon}
+            <div className="marquee-3d">
+                <div className="inner-marquee-3d">
+                    {displayFeatures.map((feature, index) => (
+                        <div
+                            key={index}
+                            className="card-3d group"
+                            style={{
+                                "--color-card": feature.color,
+                            }}
+                        >
+                            <div className="flip-content">
+                                {/* The "back" side in CSS is visible first */}
+                                <div className="flip-back-side">
+                                    <div className="flip-overlay bg-card group-hover:bg-primary/[0.03] dark:group-hover:bg-primary/[0.08] flex flex-col items-center justify-center p-8 text-center transition-colors duration-500">
+                                        <div 
+                                            className="mb-8 p-6 rounded-full bg-background/50 border border-border/40 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_30px_rgba(62,207,122,0.1)]"
+                                            style={{ color: `rgb(${feature.color})` }}
+                                        >
+                                            {feature.icon}
+                                        </div>
+                                        <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground tracking-tight">
+                                            {feature.title}
+                                        </h3>
+                                        <div className="mt-4 px-4 py-1 rounded-full bg-accent/10 border border-accent/20 text-[10px] font-mono text-accent uppercase tracking-[0.2em]">
+                                            Expertise
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* The "front" side in CSS shows on hover */}
+                                <div className="flip-front-side">
+                                    <div className="flip-overlay bg-card group-hover:bg-primary/[0.05] dark:group-hover:bg-primary/[0.1] flex flex-col items-center justify-center p-8 text-center transition-colors duration-500">
+                                        <h3 className="text-lg font-heading font-bold mb-4 text-accent uppercase tracking-wider">
+                                            {feature.title}
+                                        </h3>
+                                        <p className="text-sm md:text-base text-muted-foreground font-medium leading-relaxed">
+                                            {feature.description}
+                                        </p>
+                                        <div className="mt-8 flex gap-2">
+                                            <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                                            <div className="w-2 h-2 rounded-full bg-accent/60 animate-pulse delay-75" />
+                                            <div className="w-2 h-2 rounded-full bg-accent/30 animate-pulse delay-150" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-lg md:text-xl font-heading font-bold mb-3 text-foreground tracking-tight">
-                                {feature.title}
-                            </h3>
-                            <p className="text-xs md:text-sm text-center text-muted-foreground font-medium leading-relaxed px-2">
-                                {feature.description}
-                            </p>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-            {/* Added a subtle glow effect behind the carousel */}
-            <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/10 blur-[120px] rounded-full pointer-events-none -z-10" />
         </div>
     );
 }

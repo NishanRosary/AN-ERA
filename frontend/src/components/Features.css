@@ -1,104 +1,155 @@
 .wrapper-3d {
   width: 100%;
-  height: 600px;
+  height: 650px;
   position: relative;
-  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* Prevent horizontal scroll on mobile */
-  perspective: 1500px;
+  overflow: hidden;
+  perspective: 2000px;
 }
 
-.inner-3d {
-  --w: 180px;
-  --h: 240px;
-  --translateZ: 350px;
-  --rotateX: -10deg;
-  --perspective: 1000px;
+.marquee-3d {
+  width: 100%;
+  overflow: visible;
   position: relative;
-  width: var(--w);
-  height: var(--h);
-  z-index: 2;
+  display: flex;
+  align-items: center;
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      #fffdfd 5%,
+      rgb(7, 193, 140) 95%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      rgb(255, 251, 251) 5%,
+      rgb(10, 196, 159) 95%,
+      transparent 100%);
+}
+
+.inner-marquee-3d {
+  display: flex;
+  gap: 40px;
+  padding: 60px 0;
+  width: max-content;
+  animation: scroll-left-to-right 45s linear infinite;
   transform-style: preserve-3d;
-  transform: perspective(var(--perspective)) rotateX(var(--rotateX));
-  animation: rotating-3d 30s linear infinite;
 }
 
-@media (max-width: 768px) {
-  .inner-3d {
-    --w: 120px;
-    --h: 180px;
-    --translateZ: 220px;
+@keyframes scroll-left-to-right {
+  0% {
+    transform: translateX(-50%);
   }
-  .wrapper-3d {
-    height: 450px;
-  }
-}
 
-@media (max-width: 480px) {
-  .inner-3d {
-    --w: 100px;
-    --h: 150px;
-    --translateZ: 180px;
-  }
-  .wrapper-3d {
-    height: 400px;
-  }
-}
-
-@keyframes rotating-3d {
-  from {
-    transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0);
-  }
-  to {
-    transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(1turn);
+  100% {
+    transform: translateX(0);
   }
 }
 
 .card-3d {
+  flex: 0 0 320px;
+  height: 420px;
+  perspective: 1000px;
+  overflow: visible;
+}
+
+.flip-content {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.card-3d:hover .flip-content {
+  transform: rotateY(180deg);
+}
+
+.flip-front-side,
+.flip-back-side {
   position: absolute;
   inset: 0;
-  border: 1px solid hsl(var(--border) / 0.5);
-  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 24px;
   overflow: hidden;
-  transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--translateZ));
-  background: hsl(var(--card) / 0.2);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
 }
 
-.card-3d:hover {
-  border-color: rgba(var(--color-card), 0.8);
-  background: hsl(var(--card) / 0.3);
-  box-shadow: 0 0 50px -10px rgba(var(--color-card), 0.4);
-  transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(calc(var(--translateZ) + 30px));
+/* Initial visible side */
+.flip-back-side {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border) / 0.1);
 }
 
-.img-bg {
+/* Rotating gradient light effect */
+.flip-back-side::before {
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(
-      circle at center,
-      rgba(var(--color-card), 0.15) 0%,
-      rgba(var(--color-card), 0.05) 50%,
-      transparent 100%
-    );
+  content: '';
+  display: block;
+  width: 180px;
+  height: 200%;
+  background: linear-gradient(90deg,
+      transparent,
+      #f6f9f7,
+      #3ecf7a,
+      transparent);
+  animation: rotation_light 6s infinite linear;
+  z-index: 0;
 }
 
-.card-content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+@keyframes rotation_light {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.flip-overlay {
+  position: absolute;
+  width: 98.5%;
+  height: 98.8%;
+  border-radius: 22px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* Flipped side (shows description) */
+.flip-front-side {
+  transform: rotateY(180deg);
+  background-color: hsl(var(--card));
+  border: 1px solid rgba(62, 207, 122, 0.3);
+}
+
+.inner-marquee-3d:hover {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .card-3d {
+    flex: 0 0 260px;
+    height: 360px;
+  }
+
+  .wrapper-3d {
+    height: 550px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-3d {
+    flex: 0 0 220px;
+    height: 320px;
+  }
+
+  .wrapper-3d {
+    height: 450px;
+  }
 }

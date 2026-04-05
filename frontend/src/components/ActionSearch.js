@@ -11,6 +11,16 @@ import {
     AudioLines,
 } from "lucide-react";
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || "";
+
+const iconMap = {
+    video: Video,
+    "bar-chart-2": BarChart2,
+    globe: Globe,
+    "audio-lines": AudioLines,
+    "plane-takeoff": PlaneTakeoff,
+};
+
 function useDebounce(value, delay = 500) {
     const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -27,55 +37,66 @@ function useDebounce(value, delay = 500) {
     return debouncedValue;
 }
 
-const allActions = [
+const fallbackActions = [
     {
         id: "1",
         label: "Schedule Consultation",
-        icon: <Video className="h-4 w-4 text-emerald-light" />,
+        icon: "video",
         description: "Zoom / Meet",
-        short: "⌘C",
+        short: "Ctrl+C",
         end: "Action",
+        href: "#pricing",
     },
     {
         id: "2",
         label: "Request Audit",
-        icon: <BarChart2 className="h-4 w-4 text-accent" />,
+        icon: "bar-chart-2",
         description: "Cybersecurity",
-        short: "⌘A",
+        short: "Ctrl+A",
         end: "Service",
+        href: "#services",
     },
     {
         id: "3",
         label: "View Case Studies",
-        icon: <Globe className="h-4 w-4 text-mint-flash" />,
+        icon: "globe",
         description: "Portfolio",
-        short: "",
+        short: "Enter",
         end: "Page",
+        href: "#work",
     },
     {
         id: "4",
         label: "Talk to AI Assistant",
-        icon: <AudioLines className="h-4 w-4 text-alpine-green" />,
+        icon: "audio-lines",
         description: "Jarvis",
-        short: "⌘K",
+        short: "Ctrl+K",
         end: "Active",
+        href: "#work",
     },
     {
         id: "5",
         label: "Deploy Cloud Infra",
-        icon: <PlaneTakeoff className="h-4 w-4 text-emerald-light" />,
+        icon: "plane-takeoff",
         description: "AWS / Azure",
-        short: "",
+        short: "Enter",
         end: "Service",
+        href: "#services",
     },
 ];
 
-export function ActionSearchBar({ actions = allActions }) {
+function ActionIcon({ icon }) {
+    const Icon = iconMap[icon] || Search;
+
+    return <Icon className="h-4 w-4 text-accent" />;
+}
+
+export function ActionSearchBar({ actions = fallbackActions }) {
     const [query, setQuery] = useState("");
     const [result, setResult] = useState(null);
     const [isFocused, setIsFocused] = useState(false);
-    const [isTyping, setIsTyping] = useState(false);
     const [selectedAction, setSelectedAction] = useState(null);
+    const [status, setStatus] = useState("idle");
     const debouncedQuery = useDebounce(query, 200);
 
     useEffect(() => {
@@ -84,23 +105,55 @@ export function ActionSearchBar({ actions = allActions }) {
             return;
         }
 
-        if (!debouncedQuery) {
-            setResult({ actions: allActions });
-            return;
+        let ignore = false;
+
+        async function loadActions() {
+            try {
+                setStatus("loading");
+
+                const searchParams = new URLSearchParams();
+
+                if (debouncedQuery.trim()) {
+                    searchParams.set("q", debouncedQuery.trim());
+                }
+
+                const response = await fetch(
+                    `${API_BASE_URL}/api/actions${searchParams.toString() ? `?${searchParams.toString()}` : ""}`
+                );
+
+                if (!response.ok) {
+                    throw new Error(`Request failed with ${response.status}`);
+                }
+
+                const payload = await response.json();
+
+                if (!ignore) {
+                    setResult({ actions: payload.actions });
+                    setStatus("online");
+                }
+            } catch (error) {
+                const normalizedQuery = debouncedQuery.toLowerCase().trim();
+                const filteredActions = actions.filter((action) => {
+                    const searchableText = `${action.label} ${action.description}`.toLowerCase();
+                    return searchableText.includes(normalizedQuery);
+                });
+
+                if (!ignore) {
+                    setResult({ actions: filteredActions });
+                    setStatus("fallback");
+                }
+            }
         }
 
-        const normalizedQuery = debouncedQuery.toLowerCase().trim();
-        const filteredActions = allActions.filter((action) => {
-            const searchableText = action.label.toLowerCase();
-            return searchableText.includes(normalizedQuery);
-        });
+        loadActions();
 
-        setResult({ actions: filteredActions });
-    }, [debouncedQuery, isFocused]);
+        return () => {
+            ignore = true;
+        };
+    }, [actions, debouncedQuery, isFocused]);
 
     const handleInputChange = (e) => {
         setQuery(e.target.value);
-        setIsTyping(true);
     };
 
     const container = {
@@ -150,6 +203,14 @@ export function ActionSearchBar({ actions = allActions }) {
     const handleFocus = () => {
         setSelectedAction(null);
         setIsFocused(true);
+    };
+
+    const handleActionSelect = (action) => {
+        setSelectedAction(action);
+
+        if (action.href) {
+            window.location.assign(action.href);
+        }
     };
 
     return (
@@ -220,14 +281,12 @@ export function ActionSearchBar({ actions = allActions }) {
                                             className="px-4 py-3 flex items-center justify-between hover:bg-muted cursor-pointer transition-colors"
                                             variants={item}
                                             layout
-                                            onClick={() =>
-                                                setSelectedAction(action)
-                                            }
+                                            onClick={() => handleActionSelect(action)}
                                         >
                                             <div className="flex items-center gap-3 justify-between">
                                                 <div className="flex items-center gap-3">
                                                     <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-background border border-border">
-                                                        {action.icon}
+                                                        <ActionIcon icon={action.icon} />
                                                     </span>
                                                     <span className="text-sm font-semibold text-foreground">
                                                         {action.label}
@@ -247,7 +306,7 @@ export function ActionSearchBar({ actions = allActions }) {
                                 </motion.ul>
                                 <div className="px-4 py-3 bg-muted/50 border-t border-border">
                                     <div className="flex items-center justify-between text-xs text-muted-foreground font-mono">
-                                        <span>Press ⌘K to open commands</span>
+                                        <span>{status === "fallback" ? "Offline search fallback" : "Live backend search"}</span>
                                         <span>ESC to cancel</span>
                                     </div>
                                 </div>
